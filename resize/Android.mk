@@ -46,14 +46,17 @@ resize2fs_shared_libraries := \
 resize2fs_system_shared_libraries := libc
 
 include $(CLEAR_VARS)
+LOCAL_STATIC_LIBRARIES := \
+        $(resize2fs_shared_libraries) \
+        $(resize2fs_system_shared_libraries)
 
 LOCAL_SRC_FILES := $(resize2fs_src_files)
 LOCAL_C_INCLUDES := $(resize2fs_c_includes)
 LOCAL_CFLAGS := $(resize2fs_cflags)
-LOCAL_SHARED_LIBRARIES := $(resize2fs_shared_libraries)
-LOCAL_SYSTEM_SHARED_LIBRARIES := $(resize2fs_system_shared_libraries)
 LOCAL_MODULE := resize2fs
 LOCAL_MODULE_TAGS := optional
+LOCAL_FORCE_STATIC_EXECUTABLE := true
+LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT_SBIN)
 include $(BUILD_EXECUTABLE)
 
 include $(CLEAR_VARS)
