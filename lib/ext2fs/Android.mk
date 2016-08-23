@@ -80,6 +80,14 @@ libext2fs_shared_libraries := \
 
 libext2fs_system_shared_libraries := libc
 
+libext2fs_static_libraries := \
+	libext2_com_err \
+	libext2_uuid_static \
+	libext2_blkid \
+	libext2_e2p
+
+libext2fs_system_static_libraries := libc
+
 libext2fs_c_includes := external/e2fsprogs/lib
 
 libext2fs_cflags := -O2 -g -W -Wall \
@@ -123,14 +131,11 @@ LOCAL_MODULE_TAGS := optional
 include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
-LOCAL_STATIC_LIBRARIES := \
-        $(libext2fs_system_shared_libraries) \
-        $(libext2fs_shared_libraries)
 
 LOCAL_SRC_FILES := $(libext2fs_src_files)
+LOCAL_STATIC_LIBRARIES := $(libext2fs_static_libraries) $(libext2fs_system_static_libraries)
 LOCAL_C_INCLUDES := $(libext2fs_c_includes)
 LOCAL_CFLAGS := $(libext2fs_cflags) $(libext2fs_cflags_linux)
-LOCAL_PRELINK_MODULE := true
 LOCAL_MODULE := libext2fs
 LOCAL_MODULE_TAGS := optional
 

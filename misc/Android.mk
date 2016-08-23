@@ -44,7 +44,6 @@ mke2fs_cflags_linux := \
 mke2fs_cflags += -DNO_CHECK_BB
 
 mke2fs_shared_libraries := \
-	libext2_quota \
 	libext2fs \
 	libext2_blkid \
 	libext2_uuid \
@@ -57,17 +56,13 @@ mke2fs_system_shared_libraries := libc
 
 include $(CLEAR_VARS)
 
-LOCAL_STATIC_LIBRARIES := \
-        $(mke2fs_system_shared_libraries) \
-        $(mke2fs_shared_libraries)
-
 LOCAL_SRC_FILES := $(mke2fs_src_files)
 LOCAL_C_INCLUDES := $(mke2fs_c_includes)
 LOCAL_CFLAGS := $(mke2fs_cflags) $(mke2fs_cflags_linux)
+LOCAL_SYSTEM_SHARED_LIBRARIES := $(mke2fs_system_shared_libraries)
+LOCAL_SHARED_LIBRARIES := $(mke2fs_shared_libraries)
 LOCAL_MODULE := mke2fs
 LOCAL_MODULE_TAGS := optional
-LOCAL_FORCE_STATIC_EXECUTABLE := true
-#LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT_SBIN)
 include $(BUILD_EXECUTABLE)
 
 include $(CLEAR_VARS)
